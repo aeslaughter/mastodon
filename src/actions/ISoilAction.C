@@ -267,7 +267,7 @@ ISoilAction::act()
 
   std::vector<std::string> base_names(E0_component[0].size());
   for (unsigned int j = 0; j < E0_component[0].size(); j++)
-    base_names[j] = "ISoil_" + Moose::stringify(j);
+    base_names[j] = "stress_" + block[0] + "_ISoil_" + Moose::stringify(j);
 
   params.set<std::vector<std::string>>("base_models") = base_names;
   params.set<std::vector<std::vector<Real>>>("youngs_modulus") = E0_component;

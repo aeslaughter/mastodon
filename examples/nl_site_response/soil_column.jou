@@ -1,0 +1,55 @@
+reset
+
+## dimension inputs:
+#{x_dim = 25}
+#{y_dim = 25}
+
+#{layer0 = 4.667}
+#{layer1 = 36}
+#{layer2 = 99}
+#{layer3 = 29}
+#{layer4 = 53}
+#{layer5 = 19}
+#{layer6 = 20}
+#{z_dim = layer0+layer1+layer2+layer3+layer4+layer5+layer6}
+
+### Mesh sizes (number of elements)
+#{elems_0 = 1}
+#{elems_1 = 14}
+#{elems_2 = 26}
+#{elems_3 = 24}
+#{elems_4 = 37}
+#{elems_5 = 8}
+#{elems_6 = 24}
+
+### Create Geometry:
+brick x {x_dim} y {y_dim} z {z_dim}
+volume 1 move z {z_dim/2}
+webcut volume 1 general plane Z offset {layer0}
+webcut volume 1 general plane Z offset {layer0+layer1}
+webcut volume 1 general plane Z offset {layer0+layer1+layer2}
+webcut volume 1 general plane Z offset {layer0+layer1+layer2+layer3}
+webcut volume 1 general plane Z offset {layer0+layer1+layer2+layer3+layer4}
+webcut volume 1 general plane Z offset {layer0+layer1+layer2+layer3+layer4+layer5}
+
+
+### Mesh Geometry
+merge all
+curve 1 2 3 4 int 1
+volume 1 int {elems_6}
+volume 2 int {elems_0}
+volume 3 int {elems_1}
+volume 4 int {elems_2}
+volume 5 int {elems_3}
+volume 6 int {elems_4}
+volume 7 int {elems_5}
+mesh volume 1 2 3 4 5 6 7
+
+### Final Preparations:
+block 1 volume all
+sideset 1 surface 2   #Bottom
+sideset 2 surface 13 26 33 46 53 59 66   #positive x
+sideset 3 surface 15 23 36 43 56 61 63   #negative x
+sideset 4 surface 16 24 35 44 55 60 64   #positive y
+sideset 5 surface 14 25 34 45 54 58 65   #negative y
+sideset 6 surface 1   #top

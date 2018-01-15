@@ -21,6 +21,8 @@ validParams<LinearSoilMaterial>()
   params.addClassDescription("Material for computing the shear wave speed "
                              "and minimum element size as a function "
                              "of shear modulus and density.");
+
+  params.declareControllable("shear_modulus density");
   return params;
 }
 

@@ -1,0 +1,13 @@
+[Tests]
+  [./control_layer_values]
+    type = Exodiff
+    input = layer_control.i
+    exodiff = layer_control_out.e
+  [../]
+  [./invalid_value_size]
+    type = RunException
+    input = layer_control.i
+    cli_args = Controls/control_density/values='1500'
+    expect_err = "The layer values specified in the control_density Control object and the values being controlled must be the same size."
+  [../]
+[]
